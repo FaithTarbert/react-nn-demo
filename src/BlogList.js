@@ -1,6 +1,6 @@
 
 //it is understood that what is in the BlogList obj is a prop ie prop.blogs and prop.title
-const BlogList = ({ blogs, title, handleDelete }) => {
+const BlogList = ({ blogs, title }) => {
     // const blogs = props.blogs;
     // const title = props.title;
 
@@ -11,7 +11,7 @@ const BlogList = ({ blogs, title, handleDelete }) => {
             <div className="blog-preview" key={blog.id}>
             <h2>{ blog.title }</h2>
             <p>Written By { blog.author}</p>
-            <button onClick={() => handleDelete(blog.id)}>Delete Blog</button>
+            {/* <button onClick={() => handleDelete(blog.id)}>Delete Blog</button> */}
             </div>  
         ))}
         </div>

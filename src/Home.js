@@ -1,8 +1,9 @@
 //a function that returns a jsx template element for use elsewhere, likely App.js
 //sfc +tab creates a template (stands for stateless function component)
 //useState is a HOOK reserve kw that we can use to tell react to watch a variable for any updates
-import { useState } from 'react';
+// import { useState, useEffect } from 'react';
 import BlogList from './BlogList';
+import useFetch from './useFetch';
 
 
 const Home = () => {
@@ -30,26 +31,35 @@ const Home = () => {
     // };
 
     //3rd example uses an array of objects with IDs...
-    const [blogs, setBlogs] = useState([
-        {title: 'My new website', body: 'lorem ipsum...', author: 'Nathan', id: 1},
-        {title: 'Welcome party!', body: 'lorem ipsum...', author: 'Faith', id: 2},
-        {title: 'Web Deb Tool Tips', body: 'lorem ipsum...', author: 'Daisy', id: 3},
-    ]);
+    // const [blogs, setBlogs] = useState(null);
 
-    const handleDelete = (id) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id);
-        setBlogs(newBlogs);
-    };
+    // const [name, setName] = useState('Faith');
 
+    // const handleDelete = (id) => {
+    //     const newBlogs = blogs.filter(blog => blog.id !== id);
+    //     setBlogs(newBlogs);
+    // };
+
+    // const [isPending, setIsPending] = useState(true);
+    // const [error, setError] = useState(null);
+
+    const { data: blogs, isPending, error } = useFetch('http://localhost:8000/blogs');
+
+    //useEffect fires every time the page loads or something re-renders, passing an empty array makes it only fire when the page first loads. Adding a param(s) to the array makes the function only fire when that element(s) updates, called a dependency
     return (
         <div className="home">
             {/* <h2>Homepage</h2>
+            
             <p>{ name } is { age } years old</p>
             <button onClick={handleClick}>Click Me</button> */}
+            { error && <div>{ error }</div> }
+            { isPending && <div>Loading...</div> }
+            {blogs && <BlogList blogs={blogs} title="All Blogs!"/>}
             {/* <button onClick={(event) => handleClickAgain("Faith", event)}>Click Me Again</button> */}
-            <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete}/>
             {/* filter returns a new array with only the items that return as true */}
             {/* <BlogList blogs={blogs.filter((blog) => blog.author === "Faith")} title="Faith's Blogs!"/> */}
+            {/* <button onClick={() => setName('Nathan')}>Change Name</button>
+            <p>{ name }</p> */}
         </div>
      );
 }
