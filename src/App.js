@@ -1,16 +1,31 @@
 
 import Navbar from './Navbar';
 import Home from './Home';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Create from './Create';
+import BlogDetails from './BlogDetails';
 
 //this App function renders all of our nested/associated jsx compoennets to the ROOT dom element in index.js
 function App() {
   return (
+    <Router>
     <div className="App">
       <Navbar />
       <div className="content">
-      <Home />
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/create">
+          <Create />
+        </Route>
+        <Route path="/blogs/:id">
+          <BlogDetails />
+        </Route>
+      </Switch>
     </div>
     </div>
+    </Router>
   );
 }
 

@@ -1,3 +1,7 @@
 npx json-server --watch data/db.json --port 8000
 
 http://localhost:8000/blogs
+
+npm install react-router-dom@5
+npm install typescript
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
